@@ -1,0 +1,15 @@
+#overview {
+	max-width: 800px;
+	text-align: center;
+	margin: auto;
+}
+#links {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	background-color: blue;
+	height: 40px;
+}
+#links a {
+	background-color: lightblue;
+}

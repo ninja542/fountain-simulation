@@ -24,6 +24,10 @@
 #labels div{
 	width: 300px;
 }
+#inputs {
+	position: absolute;
+	top: 250px;
+}
 #connection {
 	/* trying to make a stupid trapezoid to connect the two pipes. The css properties will then be linked in html to the vue object to adjust to the different sizes of the pipes */
 	position: absolute;

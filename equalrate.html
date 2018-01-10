@@ -6,12 +6,26 @@
 	</head>
 	<body>
 		<div id="wrapper">
-			<div id="pipe1" title="pipe 1, radius is"></div>
-			<div id="connection"></div>
-			<div id="pipe2"></div>
+			<div id="pipe1" title="pipe 1, radius is" v-bind:style="{height: pipe1}"></div>
+			<div id="connection" v-bind:style="borderStyle"></div>
+			<div id="pipe2" v-bind:style="{height: pipe2}"></div>
+			<div id="labels">
+				<div>Pipe 1</div>
+				<div>Pipe 2</div>
+			</div>
+			<div id="inputs">
+				<p>Pipe 1 radius: {{pipe1}} pixels</p>
+				<input type="range" v-model.number="pipe1" min="1" max="200">
+				<p>Pipe 2 radius: {{pipe2}} pixels</p>
+				<input type="range" v-model.number="pipe2" min="1" max="200">
+			</div>
 		</div>
 		<div id="instructions">
-			This is
+			This is a demonstration of equal flow rates.
 		</div>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+	<script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+	<script src="equalrate.js"></script>
 	</body>
 </html>

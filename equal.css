@@ -1,23 +1,34 @@
 #pipe1{
-	width: 300px;
+	width: 390px;
 	height: 100px;
 	background-color: lightskyblue;
 }
 #pipe2 {
-	position: relative;
+	position: absolute;
 	width: 300px;
 	height: 30px;
 	background-color: lightskyblue;
-	left: 500px;
-	top: -200px;
+	left: 400px;
+	top: 8px;
+}
+#pipe1, #pipe2 {
+	z-index: 1;
+}
+#labels {
+	width: 800px;
+	text-align: center;
+	display: flex;
+	position: relative;
+	z-index: 2;
+}
+#labels div{
+	width: 300px;
 }
 #connection {
 	/* trying to make a stupid trapezoid to connect the two pipes. The css properties will then be linked in html to the vue object to adjust to the different sizes of the pipes */
-	position: relative;
-	top: -100px;
-	left: 200px;
+	position: absolute;
+	top: 8px;
+	left: 300px;
 	width: 100px;
-	border-bottom: 100px solid transparent;
-	border-left: 200px solid;
-	border-top: 100px solid transparent;
+	border-right: 100px solid transparent;
 }

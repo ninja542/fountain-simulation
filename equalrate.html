@@ -6,13 +6,13 @@
 	</head>
 	<body>
 		<div id="wrapper">
-			<div id="pipe1" title="pipe 1, radius is" v-bind:style="{height: pipe1}"></div>
+			<div id="pipe1" title="pipe 1, radius is" v-bind:style="{height: pipe1}">Pipe 1</div>
 			<div id="connection" v-bind:style="borderStyle"></div>
-			<div id="pipe2" v-bind:style="{height: pipe2}"></div>
-			<div id="labels">
+			<div id="pipe2" v-bind:style="{height: pipe2}">Pipe 2</div>
+<!-- 			<div id="labels">
 				<div>Pipe 1</div>
 				<div>Pipe 2</div>
-			</div>
+			</div> -->
 			<div id="inputs">
 				<p>Pipe 1 radius: {{pipe1}} pixels</p>
 				<input type="range" v-model.number="pipe1" min="1" max="200">

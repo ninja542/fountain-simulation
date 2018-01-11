@@ -1,19 +1,20 @@
 #pipe1{
-	width: 390px;
+	width: 490px;
 	height: 100px;
 	background-color: lightskyblue;
 }
 #pipe2 {
 	position: absolute;
-	width: 300px;
+	width: 500px;
 	height: 30px;
 	background-color: lightskyblue;
-	left: 400px;
+	left: 500px;
 	top: 8px;
 }
 #pipe1, #pipe2 {
 	z-index: 1;
 	text-align: center;
+	padding: 0px;
 }
 #inputs {
 	position: absolute;
@@ -22,7 +23,7 @@
 #connection {
 	position: absolute;
 	top: 8px;
-	left: 300px;
+	left: 400px;
 	width: 100px;
 	border-right: 100px solid transparent;
 }

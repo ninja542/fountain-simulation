@@ -18,7 +18,7 @@ var pipe = new Vue({
 			return (this.pipe1);
 		},
 		finalVel: function(){
-			return (this.pipe1/this.pipe2)*this.initialVel;
+			return (Math.pow(this.pipe1, 2)/Math.pow(this.pipe2, 2))*this.initialVel;
 		}
 	}
 });

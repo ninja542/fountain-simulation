@@ -1,0 +1,33 @@
+#pipe1{
+	width: 500px;
+	height: 100px;
+	background-color: lightskyblue;
+	position: relative;
+	z-index: 2;
+}
+#pipe2 {
+	width: 900px;
+	height: 100px;
+	background-color: lightskyblue;
+	position: relative;
+	left: 400px;
+	top: -100px;
+	z-index: 1;
+}
+#pipe1, #pipe2 {
+	text-align: center;
+	padding: 0px;
+}
+#connection {
+	height: 200px;
+	width: 100px;
+	background-color: lightskyblue;
+	position: relative;
+	top: -100px;
+	left: 400px;
+}
+.pressure {
+	background-color: green;
+	width: 10px;
+	height: 50px;
+}

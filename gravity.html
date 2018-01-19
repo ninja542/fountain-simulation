@@ -7,44 +7,55 @@
 	<body>
 		<div id="wrapper">
 			<div id="pipe1" title="pipe 1, radius is" v-bind:style="positionTop">
-				<svg xmlns="http://www.w3.org/2000/svg" width="490px" height="200px">
+				<svg xmlns="http://www.w3.org/2000/svg" width="600px" height="200px">
 					<defs>
 						<marker id="arrow" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="2" markerHeight="2" orient="auto">
 							<path d="M 0 0 L 10 5 L 0 10 z" fill="blue"/>
 						</marker>
 					</defs>
 					<path v-bind:d="'M20,20l'+initialVel*10+',0'" fill="none" stroke="blue" stroke-width="6" marker-end="url(#arrow)"/>
-					<!-- <path d="M0,10 l100,0" fill="none" stroke="blue" stroke-width="6" marker-end="url(#arrow)"/> -->
-					<!-- <path d="M0,40 l100,0" fill="none" stroke="blue" stroke-width="6" marker-end="url(#arrow)"/> -->
-					<!-- <path d="M0,70 l100,0" fill="none" stroke="blue" stroke-width="6" marker-end="url(#arrow)"/> -->
 				</svg>
-				<div>Pipe 1 velocity = {{initialVel}} m/s</div>
+				<div>
+					<p>Pipe 1 velocity = {{initialVel}} m/s</p>
+					<p>Pipe 1 pressure = {{initialPressure}} kPa</p>
+				</div>
 				<div class="pressure">
 				</div>
 			</div>
-			<div id="connection" v-bind:style="{height: Math.abs(height)}"></div>
+			<div id="connection" v-bind:style="{height: Math.abs(height*100)}"></div>
 			<div id="pipe2" v-bind:style="positionBottom">
-				<svg xmlns="http://www.w3.org/2000/svg" height="200px" width="500px">
+				<svg xmlns="http://www.w3.org/2000/svg" height="200px" width="900px">
 					<defs>
 						<marker id="arrow" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="2" markerHeight="2" orient="auto">
 							<path d="M 0 0 L 10 5 L 0 10 z" fill="blue"/>
 						</marker>
 					</defs>
-					<path d="M100,20l100,0" fill="none" stroke="blue" stroke-width="6" marker-end="url(#arrow)"/>
+					<path v-bind:d="'M20,20l'+finalVel*10+',0'" fill="none" stroke="blue" stroke-width="6" marker-end="url(#arrow)"/>
 				</svg>
-				<div>Pipe 2 velocity = {{+parseFloat(finalVel).toFixed(2)}} m/s</div>
+				<div>
+					<p>Pipe 2 velocity = {{+parseFloat(finalVel).toFixed(2)}} m/s</p>
+					<p>Pipe 2 pressure = {{finalPressure}} kPa</p>
+				</div>
 			</div>
 			<div id="inputs">
 				<div>
-					<p>Initial Velocity</p>
+					<p>Initial Velocity {{initialVel}} m/s</p>
 					<input type="range" v-model.number="initialVel" min="0" max="50">
-					<p>Height of pipe 2</p>
-					<input type="range" v-model.number="height" min="-400" max="400" step="10">
+					<p>Initial Pressure: {{initialPressure}} kPa</p>
+					<input type="range" v-model.number="initialPressure" min="0" max="6000" step="100">
+					<p>Height of pipe 2: {{-height}} m</p>
+					<input type="range" v-model.number="height" min="-4" max="4" step="0.01">
+					<p>Density of liquid</p>
+					<input type="radio" name="density" v-model.number="liquid" id="water" value="1000"><label for="water">Water</label>
+					<input type="radio" name="density" v-model.number="liquid" id="gasoline" value="803"><label for="gasoline">Gasoline</label>
+					<input type="radio" name="density" v-model.number="liquid" id="honey" value="1420"><label for="honey">Honey</label>
+					<input type="radio" name="density" v-model.number="liquid" id="butane" value="551"><label for="butane">Butane</label>
+					<input type="range" v-model.number="liquid" min="0" max="8000">
 				</div>
 				<div id="instructions">
 					<p>Instructions and Introduction:</p>
 					<p>This is a demonstration of equal flow rates.</p>
-					<p>Scale: 10 pixels = 1 meter </p>
+					<p>Scale: 100 pixels = 1 meter </p>
 				</div>
 			</div>
 		</div>

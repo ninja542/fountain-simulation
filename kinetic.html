@@ -1,7 +1,7 @@
 <html>
 	<head>
-		<title>Fountain Simulator - Gravitational Potential Energy</title>
-		<link href="gravity.css" rel="stylesheet">
+		<title>Fountain Simulator - Kinetic Energy</title>
+		<link href="kinetic.css" rel="stylesheet">
 	</head>
 	<body>
 		<div id="wrapper">
@@ -40,14 +40,6 @@
 				<div>
 					<p>Initial Velocity {{initialVel}} m/s</p>
 					<input type="range" v-model.number="initialVel" min="0" max="50" list="initial">
-					<datalist id="initial">
-						<option value="0"></option>
-						<option value="10"></option>
-						<option value="20"></option>
-						<option value="30"></option>
-						<option value="40"></option>
-						<option value="50"></option>
-					</datalist>
 					<p>Initial Pressure: {{initialPressure}} kPa</p>
 					<input type="range" v-model.number="initialPressure" min="0" max="6000" step="100">
 					<p>Height of pipe 2: {{-height}} m</p>
@@ -67,7 +59,6 @@
 			</div>
 		</div>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
-	<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue"></script> -->
 	<script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
 	<script src="gravity.js"></script>
 	</body>

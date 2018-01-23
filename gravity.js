@@ -1,6 +1,6 @@
 // P1 + rgh = P2 + rgh
 // velocity is the same so only pressure changes
-var pipe = new Vue({
+new Vue({
 	el: "#wrapper",
 	data: {
 		height: 2,

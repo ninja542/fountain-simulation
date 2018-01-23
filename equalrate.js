@@ -1,8 +1,9 @@
-var pipe = new Vue({
+new Vue({
 	el: "#wrapper",
 	data: {
 		pipe1: 100,
 		pipe2: 30,
+		density: 1000,
 	},
 	computed: {
 		borderStyle: function(){
@@ -19,6 +20,6 @@ var pipe = new Vue({
 		},
 		finalVel: function(){
 			return (Math.pow(this.pipe1, 2)/Math.pow(this.pipe2, 2))*this.initialVel;
-		}
+		},
 	}
 });

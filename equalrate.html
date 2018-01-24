@@ -6,6 +6,11 @@
 	</head>
 	<body>
 		<div id="wrapper">
+			<div id="pressure-detector">
+				<div id="pressure-tip" v-bind:style="{left: positionX - 55}">Pressure is {{+parseFloat(varPressure).toFixed(2)}} kPa</div>
+				<input type="range" min="0" max="1290" v-model.number="positionX" step="1">
+				<div id="pressure-line" v-bind:style="lineHeight"></div>
+			</div>
 			<div id="pipe1" title="pipe 1, radius is" v-bind:style="{height: pipe1}">
 				<svg xmlns="http://www.w3.org/2000/svg" width="490px" height="200px">
 					<defs>
@@ -16,8 +21,6 @@
 					<path v-for="n in (Math.floor(initialVel/20))||1" v-bind:d="'M50,'+n*19+'l'+(initialVel/(Math.floor(initialVel/20)||1)*10)+',0'" fill="none" stroke="blue" stroke-width="6" marker-end="url(#arrow)"/>
 				</svg>
 				<div>Pipe 1 velocity = {{initialVel}} m/s</div>
-				<div class="pressure">
-				</div>
 			</div>
 			<div id="connection" v-bind:style="borderStyle"></div>
 			<div id="pipe2" v-bind:style="{height: pipe2}">
@@ -33,17 +36,25 @@
 			</div>
 			<div id="inputs">
 				<div>
-					<p>Pipe 1 radius: {{+parseFloat(pipe1*0.10/2).toFixed(1)}} meters</p>
+					<p>Pipe 1 radius: {{pipe1}} meters</p>
 					<input type="range" v-model.number="pipe1" min="10" max="200">
 				</div>
 				<div>
-					<p>Pipe 2 radius: {{+parseFloat(pipe2*0.10/2).toFixed(1)}} meters</p>
+					<p>Pipe 2 radius: {{pipe2}} meters</p>
 					<input type="range" v-model.number="pipe2" min="10" max="200">
+				</div>
+				<div>
+					<p> Initial Velocity: {{initialVel}} m/s</p>
+					<input type="range" v-model.number="initialVel" min="0" max="100">
+				</div>
+				<div>
+					<p> Initial Pressure: {{initialPressure}} kPa</p>
+					<input type="range" v-model.number="initialPressure" min="0" max="1000">
 				</div>
 				<div id="instructions">
 					<p>Instructions and Introduction:</p>
 					<p>This is a demonstration of equal flow rates.</p>
-					<p>Scale: 10 pixels = 1 meter </p>
+					<p>Scale: 1 pixels = 1 meter </p>
 				</div>
 			</div>
 		</div>

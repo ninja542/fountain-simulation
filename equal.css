@@ -1,5 +1,5 @@
 #pipe1{
-	width: 490px;
+	width: 492px;
 	height: 100px;
 	background-color: lightskyblue;
 }
@@ -9,7 +9,7 @@
 	height: 30px;
 	background-color: lightskyblue;
 	left: 500px;
-	top: 8px;
+	top: 68px;
 }
 #pipe1, #pipe2 {
 	z-index: 1;
@@ -18,7 +18,7 @@
 }
 #inputs {
 	position: absolute;
-	top: 250px;
+	top: 280px;
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -28,13 +28,32 @@
 }
 #connection {
 	position: absolute;
-	top: 8px;
+	top: 68px;
 	left: 400px;
 	width: 100px;
 	border-right: 100px solid transparent;
 }
-.pressure {
-	background-color: green;
-	width: 10px;
-	height: 50px;
+#pressure-detector {
+	width: 1290px;
+	height: 20px;
+	margin-bottom: 40px;
+}
+#pressure-detector > input {
+	width: 1290px;
+}
+#pressure-tip {
+	position: relative;
+	background-color: red;
+	width: 150px;
+	text-align: center;
+	height: 20px;
+	z-index: 2;
+}
+#pressure-line {
+	position: relative;
+	height: 100px;
+	width: 5px;
+	background-color: lightsalmon;
+	top: 15px;
+	z-index: 3;
 }

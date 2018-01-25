@@ -5,7 +5,7 @@ new Vue({
 	data: {
 		height: 2,
 		initialVel: 30,
-		initialPressure: 6000,
+		initialPressure: 100,
 		liquid: 1000,
 	},
 	computed: {
@@ -14,16 +14,16 @@ new Vue({
 		},
 		positionTop: function(){
 			if (this.height < 0){
-				return {top: -this.height*100};
+				return {top: -this.height*30};
 			}
 		},
 		positionBottom: function(){
 			if(this.height < 0){
-				return {top: this.height*100-100};
+				return {top: this.height*30-100};
 			}
 		},
 		finalPressure: function(){
-			return this.initialPressure - (this.liquid*9.8*-this.height);
+			return this.initialPressure - (this.liquid*9.8*-this.height)/1000;
 		},
 	}
 });

@@ -23,8 +23,8 @@ new Vue({
 		},
 		varPressure: function(){
 			return this.initialPressure +
-								(0.5 * this.density * Math.pow(this.initialVel, 2)/1000) -
-								(0.5 * this.density * Math.pow((Math.pow(this.pipe1, 2)/Math.pow(this.connectionHeight, 2))*this.initialVel, 2)/1000);
+				(0.5 * this.density * Math.pow(this.initialVel, 2)/1000) -
+				(0.5 * this.density * Math.pow((Math.pow(this.pipe1, 2)/Math.pow(this.connectionHeight, 2))*this.initialVel, 2)/1000);
 		},
 		connectionHeight: function(){
 			if (this.pipe1 <= this.pipe2){

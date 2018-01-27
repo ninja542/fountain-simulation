@@ -12,26 +12,10 @@
 				<div id="pressure-line" v-bind:style="lineHeight"></div>
 			</div>
 			<div id="pipe1" title="pipe 1, radius is" v-bind:style="{height: pipe1}">
-				<svg xmlns="http://www.w3.org/2000/svg" width="490px" height="200px">
-					<defs>
-						<marker id="arrow" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="2" markerHeight="2" orient="auto">
-							<path d="M 0 0 L 10 5 L 0 10 z" fill="blue"/>
-						</marker>
-					</defs>
-					<path v-for="n in (Math.floor(initialVel/20))||1" v-bind:d="'M50,'+n*19+'l'+(initialVel/(Math.floor(initialVel/20)||1)*10)+',0'" fill="none" stroke="blue" stroke-width="6" marker-end="url(#arrow)"/>
-				</svg>
 				<div>Pipe 1 velocity = {{initialVel}} m/s</div>
 			</div>
 			<div id="connection" v-bind:style="borderStyle"></div>
 			<div id="pipe2" v-bind:style="{height: pipe2}">
-				<svg xmlns="http://www.w3.org/2000/svg" height="200px" width="900px">
-					<defs>
-						<marker id="arrow" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="2" markerHeight="2" orient="auto">
-							<path d="M 0 0 L 10 5 L 0 10 z" fill="blue"/>
-						</marker>
-					</defs>
-					<path v-for="n in (Math.floor(pipe2/20)||1)" v-bind:d="'M50,'+n*19+'l'+(finalVel/(Math.floor(pipe2/20)||1)*10)+',0'" fill="none" stroke="blue" stroke-width="6" marker-end="url(#arrow)"/>
-				</svg>
 				<div>Pipe 2 velocity = {{+parseFloat(finalVel).toFixed(2)}} m/s</div>
 			</div>
 			<div id="inputs">

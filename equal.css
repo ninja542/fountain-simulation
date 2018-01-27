@@ -44,7 +44,8 @@
 #pressure-tip {
 	position: relative;
 	background-color: red;
-	width: 150px;
+	display: inline-block;
+	padding: 0px 5px 0px 5px;
 	text-align: center;
 	height: 20px;
 	z-index: 2;

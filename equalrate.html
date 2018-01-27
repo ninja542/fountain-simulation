@@ -9,7 +9,7 @@
 			<div id="pressure-detector">
 				<div id="pressure-tip" v-bind:style="{left: positionX - 55}">Pressure is {{+parseFloat(varPressure).toFixed(2)}} kPa</div>
 				<input type="range" min="0" max="1290" v-model.number="positionX" step="1">
-				<div id="pressure-line" v-bind:style="lineHeight"></div>
+				<div id="pressure-line" v-bind:style="{height: connectionHeight, left: positionX}"></div>
 			</div>
 			<div id="pipe1" title="pipe 1, radius is" v-bind:style="{height: pipe1}">
 				<div>Pipe 1 velocity = {{initialVel}} m/s</div>

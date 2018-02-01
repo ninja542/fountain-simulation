@@ -1,3 +1,4 @@
+var numberList = Array.from(Array(1290).keys());
 var margin = { top: 5, right: 5, bottom: 20, left: 40 },
     width = 1350 - margin.left - margin.right,
     height = 225 - margin.top - margin.bottom;
@@ -41,8 +42,11 @@ var app = new Vue({
 		},
 	},
 	watch: {
-		finalVel: function(){
-			this.updateLine();
+		finalVel: {
+			deep: true,
+			handler: function(val){
+				this.update();
+			}
 		}
 	},
 	methods: {
@@ -96,15 +100,17 @@ var app = new Vue({
 					duration: ((1275-492)/this.finalVel)*1000,
 				});
 		},
-		updateLine: function(){
+		update: function(){
 			d3.select(".yaxis").call(d3.axisLeft(this.yScale()));
+			this.updateLine(numberList);
+		},
+		updateLine: function(data){
+			var yScale = this.yScale();
 			var line = d3.line()
 				.x(function(d){return xScale(d);})
-				.y(function(d){return app.yScale(app.varVelocity(d));});
-			svg.append("path").attr("d", line(Array.from(Array(1290).keys())))
-				.attr("stroke", "black").attr("stroke-width", 1).attr("fill", "none").attr("class", "line");
-			// svg.select(".line").attr("d", line(Array.from(Array(1290).keys())))
-			// 	.attr("stroke", "black").attr("stroke-width", "1px").attr("fill", "none");
+				.y(function(d){return yScale(app.varVelocity(d));});
+			svg.select(".velocity").attr("d", line(data))
+				.attr("stroke", "black").attr("stroke-width", 1).attr("fill", "none");
 		},
 		yScale: function(){
 			if (this.finalVel < this.initialVel) {
@@ -120,12 +126,11 @@ var app = new Vue({
 		var yAxis = d3.axisLeft(scaleY);
 		svg.append("g").call(xAxis).attr("transform", "translate(" + 0 + ", " + scaleY(0) + ")");
 		svg.append("g").call(yAxis).attr("class", "yaxis");
-
-		var velocity = this.varVelocity();
-		var line = d3.line()
-			.x(function(d){return xScale(d);})
-			.y(function(d){return scaleY(velocity(d));});
-		svg.append("path").attr("d", line(Array.from(Array(1290).keys())))
-			.attr("stroke", "black").attr("stroke-width", 1).attr("fill", "none").attr("class", "line");
 	}
 });
+var yScale = app.yScale();
+var line = d3.line()
+	.x(function(d){return xScale(d);})
+	.y(function(d){return yScale(app.varVelocity(d));});
+svg.append("path").attr("d", line(numberList))
+	.attr("stroke", "black").attr("stroke-width", 1).attr("fill", "none").attr("class", "velocity");

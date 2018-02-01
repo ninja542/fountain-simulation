@@ -29,8 +29,28 @@
 	top: -100px;
 	left: 500px;
 }
-.pressure {
-	background-color: green;
-	width: 10px;
-	height: 50px;
+#pressure-detector {
+	width: 1290px;
+	height: 20px;
+	margin-bottom: 40px;
+}
+#pressure-detector > input {
+	width: 1290px;
+}
+#pressure-tip {
+	position: relative;
+	background-color: red;
+	display: inline-block;
+	padding: 0px 5px 0px 5px;
+	text-align: center;
+	height: 20px;
+	z-index: 2;
+}
+#pressure-line {
+	position: relative;
+	height: 100px;
+	width: 5px;
+	background-color: lightsalmon;
+	/* top: 15px; */
+	z-index: 3;
 }

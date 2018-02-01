@@ -9,21 +9,23 @@
 			<div id="pressure-detector">
 				<div id="pressure-tip" v-bind:style="{left: positionX - 55}">Pressure is {{+parseFloat(varPressure).toFixed(2)}} kPa</div>
 				<input type="range" min="0" max="1290" v-model.number="positionX" step="1">
-				<div id="pressure-line" v-bind:style="{height: connectionHeight, left: positionX}"></div>
 			</div>
 			<div id="pipe1" title="pipe 1, radius is" v-bind:style="{height: pipe1}">
-				<div>Pipe 1 velocity = {{initialVel}} m/s</div>
+				<div id="pressure-line" v-bind:style="{height: connectionHeight(), left: positionX}"></div>
+				<div class="water-particle"></div>
+				<div class="water-particle"></div>
 			</div>
 			<div id="connection" v-bind:style="borderStyle"></div>
 			<div id="pipe2" v-bind:style="{height: pipe2}">
-				<div>Pipe 2 velocity = {{+parseFloat(finalVel).toFixed(2)}} m/s</div>
 			</div>
 			<div id="inputs">
 				<div>
+					<div>Pipe 1 velocity = {{initialVel}} m/s</div>
 					<p>Pipe 1 radius: {{pipe1}} meters</p>
 					<input type="range" v-model.number="pipe1" min="10" max="200">
 				</div>
 				<div>
+					<div>Pipe 2 velocity = {{+parseFloat(finalVel).toFixed(2)}} m/s</div>
 					<p>Pipe 2 radius: {{pipe2}} meters</p>
 					<input type="range" v-model.number="pipe2" min="10" max="200">
 				</div>
@@ -35,15 +37,16 @@
 					<p> Initial Pressure: {{initialPressure}} kPa</p>
 					<input type="range" v-model.number="initialPressure" min="0" max="1000">
 				</div>
-				<div id="instructions">
+				<!-- <div id="instructions">
 					<p>Instructions and Introduction:</p>
 					<p>This is a demonstration of equal flow rates.</p>
 					<p>Scale: 1 pixels = 1 meter </p>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
 	<script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+	<script src="anime.min.js"></script>
 	<script src="equalrate.js"></script>
 	</body>
 </html>

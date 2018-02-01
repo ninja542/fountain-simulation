@@ -102,14 +102,11 @@ var app = new Vue({
 		},
 		update: function(){
 			d3.select(".yaxis").call(d3.axisLeft(this.yScale()));
-			this.updateLine(numberList);
-		},
-		updateLine: function(data){
 			var yScale = this.yScale();
 			var line = d3.line()
 				.x(function(d){return xScale(d);})
 				.y(function(d){return yScale(app.varVelocity(d));});
-			svg.select(".velocity").attr("d", line(data))
+			svg.select(".velocity").attr("d", line(numberList))
 				.attr("stroke", "black").attr("stroke-width", 1).attr("fill", "none");
 		},
 		yScale: function(){

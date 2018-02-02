@@ -1,5 +1,5 @@
 var numberList = Array.from(Array(1290).keys());
-var margin = { top: 5, right: 5, bottom: 20, left: 40 },
+var margin = { top: 5, right: 40, bottom: 20, left: 50 },
     width = 1350 - margin.left - margin.right,
     height = 225 - margin.top - margin.bottom;
 
@@ -9,7 +9,7 @@ var svg = d3.select('body').append('svg')
   .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-var xScale = d3.scaleLinear().domain([0, 1290]).range([0, 1290]);
+var xScale = d3.scaleLinear().domain([0, 1290]).range([0, 1210]);
 var xAxis = d3.axisBottom(xScale);
 
 var app = new Vue({
@@ -35,11 +35,9 @@ var app = new Vue({
 		finalVel: function(){
 			return (Math.pow(this.pipe1, 2)/Math.pow(this.pipe2, 2))*this.initialVel;
 		},
-		varPressure: function(){
-			return this.initialPressure +
-				(0.5 * this.density * Math.pow(this.initialVel, 2)/1000) -
-				(0.5 * this.density * Math.pow((Math.pow(this.pipe1, 2)/Math.pow(this.connectionHeight(), 2))*this.initialVel, 2)/1000);
-		},
+		finalPressure: function(){
+			return this.varPressure(1280);
+		}
 	},
 	watch: {
 		finalVel: {
@@ -47,11 +45,22 @@ var app = new Vue({
 			handler: function(val){
 				this.update();
 			}
+		},
+		positionX: function(){
+			this.update();
+		},
+		finalPressure: function(){
+			this.updatePressureGraph();
 		}
 	},
 	methods: {
 		varVelocity: function(x = this.positionX){
 			return (Math.pow(this.pipe1, 2)/Math.pow(this.connectionHeight(x), 2))*this.initialVel;
+		},
+		varPressure: function(x = this.positionX){
+			return this.initialPressure +
+				(0.5 * this.density * Math.pow(this.initialVel, 2)/1000) -
+				(0.5 * this.density * Math.pow((Math.pow(this.pipe1, 2)/Math.pow(this.connectionHeight(x), 2))*this.initialVel, 2)/1000);
 		},
 		connectionHeight: function(x = this.positionX){
 			if (this.pipe1 <= this.pipe2){
@@ -106,8 +115,21 @@ var app = new Vue({
 			var line = d3.line()
 				.x(function(d){return xScale(d);})
 				.y(function(d){return yScale(app.varVelocity(d));});
-			svg.select(".velocity").attr("d", line(numberList))
-				.attr("stroke", "black").attr("stroke-width", 1).attr("fill", "none");
+			svg.select(".velocity").attr("d", line(numberList));
+			d3.select(".marker").attr("cx", xScale(this.positionX)).attr("cy", yScale(this.varVelocity(app.positionX)));
+			var axisline = d3.line().x(function(d){return xScale(d.x);}).y(function(d){return yScale(d.y);});
+			svg.select(".velocitylines").attr("d", axisline([
+				{x: 0, y: this.varVelocity(this.positionX)},
+				{x: this.positionX, y: this.varVelocity(this.positionX)},
+				{x: this.positionX, y: 0}]));
+		},
+		updatePressureGraph: function(){
+			d3.select(".pressure").call(d3.axisRight(this.pressureScale())).attr("transform", "translate(" + xScale(1290) + ", " + 0 + ")");
+			var pressureScale = this.pressureScale();
+			var pressureline = d3.line()
+				.x(function(d){return xScale(d);})
+				.y(function(d){return pressureScale(app.varPressure(d));});
+			d3.select(".pressuregraph").attr("d", pressureline(numberList));
 		},
 		yScale: function(){
 			if (this.finalVel < this.initialVel) {
@@ -116,6 +138,14 @@ var app = new Vue({
 			else {
 				return d3.scaleLinear().domain([0, this.finalVel]).range([200, 0]);
 			}
+		},
+		pressureScale: function(){
+			if (this.initialPressure < this.varPressure(1280)){
+				return d3.scaleLinear().domain([0, this.varPressure(1290)]).range([200, 0]);
+			}
+			else {
+				return d3.scaleLinear().domain([0, this.initialPressure]).range([200, 0]);
+			}
 		}
 	},
 	mounted: function(){
@@ -123,11 +153,31 @@ var app = new Vue({
 		var yAxis = d3.axisLeft(scaleY);
 		svg.append("g").call(xAxis).attr("transform", "translate(" + 0 + ", " + scaleY(0) + ")");
 		svg.append("g").call(yAxis).attr("class", "yaxis");
+		var pressure = this.pressureScale();
+		svg.append("g").call(d3.axisRight(pressure)).attr("transform", "translate(" + xScale(1290) + ", " + 0 + ")").attr("class", "pressure");
 	}
 });
+// Line graph for velocity in the pipe
 var yScale = app.yScale();
 var line = d3.line()
 	.x(function(d){return xScale(d);})
 	.y(function(d){return yScale(app.varVelocity(d));});
 svg.append("path").attr("d", line(numberList))
 	.attr("stroke", "black").attr("stroke-width", 1).attr("fill", "none").attr("class", "velocity");
+// Line graph for pressure in the pipe
+var pressureScale = app.pressureScale();
+var pressureline = d3.line()
+	.x(function(d){return xScale(d);})
+	.y(function(d){return pressureScale(app.varPressure(d));});
+svg.append("path").attr("d", pressureline(numberList)).attr("stroke", "green").attr("stroke-width", 1).attr("fill", "none").attr("class", "pressuregraph");
+// for the marker on the graph
+svg.append("circle").attr("cx", xScale(app.positionX)).attr("cy", yScale(app.varVelocity(app.positionX))).attr("fill", "lightsalmon").attr("r", 5).attr("class", "marker");
+var axisline = d3.line().x(function(d){return xScale(d.x);}).y(function(d){return yScale(d.y);});
+svg.append("path").attr("d", axisline([
+	{x: 0, y: app.varVelocity(app.positionX)},
+	{x: app.positionX, y: app.varVelocity(app.positionX)},
+	{x: app.positionX, y: 0}]))
+	.attr("stroke", "lightsalmon").attr("stroke-width", 1).attr("fill", "none").attr("class", "velocitylines");
+// Axis labels
+svg.append("text").attr("text-anchor", "middle").attr("transform", "translate("+ (-margin.left+10) +","+(height/2)+")rotate(-90)").text("velocity (m/s)");
+svg.append("text").attr("text-anchor", "middle").attr("transform", "translate(" + (width) + ", " + (height/2) + ")rotate(-90)").text("pressure (kPa)");

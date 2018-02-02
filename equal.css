@@ -43,12 +43,15 @@
 }
 #pressure-tip {
 	position: relative;
-	background-color: red;
+	border: solid black;
 	display: inline-block;
 	padding: 0px 5px 0px 5px;
 	text-align: center;
 	height: 20px;
 	z-index: 2;
+}
+#pressure-tip p {
+	margin: 0;
 }
 #pressure-line {
 	position: relative;
@@ -61,7 +64,7 @@
 #information {
 	display: flex;
 }
-.water-particle {
+/* .water-particle {
 	border-radius: 50%;
 	background-color: blue;
 	height: 15px;
@@ -72,8 +75,11 @@
 }
 .water-particle:nth-child(2){
 	top: 85px;
-}
+} */
 svg {
 	position: absolute;
 	top: 450px;
+}
+.velocitylines {
+	shape-rendering: crispEdges;
 }

@@ -7,13 +7,16 @@
 	<body>
 		<div id="wrapper">
 			<div id="pressure-detector">
-				<div id="pressure-tip" v-bind:style="{left: positionX - 55}">Pressure is {{+parseFloat(varPressure).toFixed(2)}} kPa</div>
+				<div id="pressure-tip" v-bind:style="{left: positionX - 55}">
+					<p v-if="varPressure()>=0">Pressure is {{+parseFloat(varPressure()).toFixed(2)}} kPa</p>
+					<p v-if="varPressure()<0">KABOOM cavitation happened {{+parseFloat(varPressure()).toFixed(2)}} kPa</p>
+				</div>
 				<input type="range" min="0" max="1290" v-model.number="positionX" step="1">
 			</div>
 			<div id="pipe1" title="pipe 1, radius is" v-bind:style="{height: pipe1}">
 				<div id="pressure-line" v-bind:style="{height: connectionHeight(), left: positionX}"></div>
-				<div class="water-particle"></div>
-				<div class="water-particle"></div>
+				<!-- <div class="water-particle"></div>
+				<div class="water-particle"></div> -->
 			</div>
 			<div id="connection" v-bind:style="borderStyle"></div>
 			<div id="pipe2" v-bind:style="{height: pipe2}">
@@ -46,7 +49,7 @@
 		</div>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
 	<script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
-	<script src="anime.min.js"></script>
+	<!-- <script src="anime.min.js"></script> -->
 	<script src="equalrate.js"></script>
 	</body>
 </html>
